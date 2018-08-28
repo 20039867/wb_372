@@ -1,0 +1,38 @@
+\documentclass{article}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+
+\begin{document}
+
+%\tikzstyle{c} = [draw,circle,minimum size=1cm]
+%\tikzstyle{r} = [draw,rectangle,minimum size=.8cm]
+%\tikzstyle{e} = [->,>=latex]
+%\begin{tikzpicture}[scale=0.5]
+%	\draw[help lines] (0,0) grid (10,10);
+%	\node[c] (A) at (2,8) {A};
+%	\node[c] (B) at (8,8) {B};
+%	\node[c] (C) at (8,2) {C};
+%	\node[r] (D) at (2,2) {D};
+%	\draw (0,0) -- ($(A)!0.27!(C)$);
+%	\draw[e] (A) -- (B);
+%	\draw[e] (A) -- (C);
+%	\draw[e] (B) -- (C);
+%	\draw[e] (D) -- (C);
+%\end{tikzpicture}
+
+\tikzstyle{c} = [draw,circle,fill=blue,minimum size=1cm,node distance=3cm]
+\tikzstyle{r} = [draw,rectangle,minimum size=.8cm,node distance=3cm]
+\tikzstyle{e} = [->,>=latex]
+\tikzstyle{l} = [above]
+\begin{tikzpicture}[scale=0.5]
+	\node[c] (A) at (100,100) {A};
+	\node[c,right of=A] (B) {B};
+	\node[c,below of=B] (C) {C};
+	\node[r,left of=C] (D) {D};
+	\draw[e] (A) to[bend left] node[l] {$\gamma$} (B);
+	\draw[e] (A) -- (C);
+	\draw[e] (B) -- (C);
+	\draw[e] (D) -- node[l] {$\phi$} (C);
+\end{tikzpicture}
+
+\end{document}

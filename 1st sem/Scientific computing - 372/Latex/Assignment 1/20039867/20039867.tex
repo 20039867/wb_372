@@ -1,0 +1,83 @@
+\documentclass[10pt]{article} %you need this
+\usepackage{amsmath}
+
+\author{Sheldon Deacon 20039867}
+\title{Assignment 1}
+\date{}
+
+\begin{document}
+\maketitle
+
+You must reproduce this document exactly. Use the article class with the
+10pt and a4paper options. However, you must substitute your own name and
+surname for XXX in the title, and use your own student number in the place
+of “12345678”. Submission: You have to hand in printed copies of both your
+\LaTeX \space source, and the corresponding pdf document, before you leave the venue.
+
+\section{My favorite Things}
+My favorite quote is:
+\begin{quote}
+It is not the critic who counts; not the man who points out how
+the strong man stumbles, or where the doer of deeds could have
+done them better. The credit belongs to the man who is actually
+in the arena, whose face is marred by dust and sweat and blood;
+who strives valiantly; who errs, who comes short again and again,
+because there is no effort without error and shortcoming; but who
+does actually strive to do the deeds; who knows great enthusiasms,
+the great devotions; who spends himself in a worthy cause; who at
+the best knows in the end the triumph of high achievement, and who
+at the worst, if he fails, at least fails while daring greatly, so that
+his place shall never be with those cold and timid souls who neither
+know victory nor defeat. -- \textit{Theodore-Roosevelt}
+\end{quote}
+
+.\newline I love the following movies:
+\begin{enumerate}
+\item Back to the Future
+\item Back to the Future I
+\item Back to the Future II
+\end{enumerate}
+
+. \newline Here is an interesting equation:
+\begin{equation}
+	\int_0^{5} x^{2} dx
+	\label{eq1}
+\end{equation}
+
+.\newline I simply love Eq. \ref{eq1}.\newline
+I can also recommend reading \cite{cohn}.\newline
+Table \ref{t:nice} contain all my lucky numbers.
+
+\begin{center}
+\end{center}
+
+\ref{t:nice}
+
+\begin{table*}[h]
+\begin{center}
+\begin{tabular}{||cccc||}
+\hline
+Column 1 & Column 2 & Column 2 & Column 3 \\
+\hline
+\hline
+ 3331 & 4446 & 87837 & 78733 \\
+ 2333 & 7 & 78  & 5415\\
+ 311 & 545 & 77833 & 7507 \\
+ 422 & 545 & 18744 & 7560\\
+ 533 & 88 & 78833 & $\pi$ \\	
+ \hline
+\end{tabular}
+
+\end{center}
+\caption[Nice table]{My favorite numbers.}
+\label{t:nice}
+\end{table*}
+
+
+\begin{thebibliography}{0}
+\bibitem{cohn} P. M. Cohn. 2003. \emph{Basic Algebra: Groups,
+Rings and Fields}. Berlin: Springer-Verlag.
+\end{thebibliography}
+
+
+\end{document}
