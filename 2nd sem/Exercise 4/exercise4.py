@@ -10,6 +10,7 @@ from poly_fit import stdDev
 import matplotlib.pyplot as plt
 from scipy.interpolate import interp1d
 from scipy.optimize import bisect
+from secant import secant
 
 """
 (a) Use the natural cubic spline to determine y at x = 1.5. The data points are as follows:
@@ -36,6 +37,7 @@ def a():
     for i in range(len(xapprox)):
         yapprox[i] += eval_spline(xdata, ydata, k, xapprox[i])
 
+    plt.title('A')
     plt.plot(x1, y1,"g-",x11, y11, "g-", xdata,ydata,"r.-",xapprox,yapprox,"b-")
     plt.show()
 
@@ -108,7 +110,7 @@ def d():
     for i in range(len(xapprox)):
         yapprox[i] += neville(xdata, ydata, xapprox[i])
 
-    plt.plot(xdata,ydata,"ro",xapprox,yapprox,"b-")
+    plt.plot(xdata,ydata,"r.-",xapprox,yapprox,"b-")
     plt.show()
 
 """
@@ -120,24 +122,27 @@ the natural cubic spline to find cD at Re = 5, 50, 500, and 5000. Hint: Use the 
 def e():
     xdata = np.array([0.2, 2.0, 20.0, 200.0, 2000.0, 20000.0])
     ydata = np.array([103.0, 13.9, 2.72, 0.800, 0.401, 0.433])
+    a = poly_fit(xdata,ydata,2)
 
-    print "E1: " + str(neville(xdata, ydata, 5))
-    print "E2: " + str(neville(xdata, ydata, 50))
-    print "E3: " + str(neville(xdata, ydata, 500))
-    print "E4: " + str(neville(xdata, ydata, 5000))
+    def f(x):
+        return a[0] + a[1]*x + a[2]*(x**2)
+
+
+    print "E1: " + str(neville(xdata, ydata, f(5)))
+    print "E2: " + str(neville(xdata, ydata, f(50)))
+    print "E3: " + str(neville(xdata, ydata, f(500)))
+    print "E4: " + str(neville(xdata, ydata, f(5000)))
     print "INCORRECT\n"
 
     """Plot"""
-    k = curvatures(xdata, ydata)
     yapprox = np.zeros(100)
     ysapprox =  np.zeros(100)
     plt.title('E')
     xapprox = np.linspace(0.2,20000,100)
     for i in range(len(xapprox)):
-        yapprox[i]  += neville(xdata, ydata, xapprox[i])
-        ysapprox[i] += eval_spline(xdata, ydata, k, xapprox[i])
+        yapprox[i] = f(xapprox[i])
 
-    plt.plot(xdata,ydata,"ro",xapprox,yapprox,"b-", xapprox,ysapprox,"r-")
+    plt.plot(xdata,ydata,"r.-",xapprox,yapprox,"b-")
     plt.show()
 
 """
@@ -197,15 +202,22 @@ def c2():
     ydata = np.array([6.008, 15.722, 27.130, 33.772, 5.257, 9.549, 11.098, 28.828])
     a = poly_fit(xdata,ydata,2)
 
+    ar = np.polyfit(xdata,ydata, 1)
+    print ar[1]
+    print ar[0]
+    def f(x):
+        return ar[1] + ar[0]*x #ar[1] = a   ar[0]=b so a + bx
+
     """Plot"""
     plt.title('C2')
+
     xapprox = np.linspace(0,5,10)
     yapprox = np.zeros(10)
-
+    yyapprox = np.zeros(10)
     for i in range(len(xapprox)):
-        yapprox[i] += a[0] + a[1] * xapprox[i] + a[2]*(xapprox[i]**2)
-
-    plt.plot(xdata,ydata,"ro",xapprox,yapprox,"b-")
+        yapprox[i] = a[0] + a[1] * xapprox[i] + a[2]*(xapprox[i]**2)
+        yyapprox[i] = f(xapprox[i])
+    plt.plot(xdata,ydata,"ro",xapprox,yapprox,"b-", xapprox, yyapprox, "y-")
     plt.show()
 
 def d2():
