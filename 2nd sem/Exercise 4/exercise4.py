@@ -9,8 +9,7 @@ from poly_fit import poly_fit
 from poly_fit import stdDev
 import matplotlib.pyplot as plt
 from scipy.interpolate import interp1d
-from newtonPoly import evalPoly
-from newtonPoly import coeffts
+
 
 """
 (a) Use the natural cubic spline to determine y at x = 1.5. The data points are as follows:
@@ -52,8 +51,8 @@ def a():
 def b():
     xdata = np.array([0.0, 0.5, 1.0, 1.5, 2, 2.5, 3.0])
     ydata = np.array([1.8421, 2.4694, 2.4921, 1.9047, 0.8509, -0.4112, -1.5727])
-    a = coeffts(xdata,ydata)
-    p = evalPoly(a,xdata,x)
+    a = poly_fit(xdata,ydata,2)
+    bisect
     print "B: NOT CORRECT Where x == " + str(point)
     """Plot"""
     x1  = [0,3 ]
