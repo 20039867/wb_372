@@ -9,8 +9,7 @@ def draw():
 
 	f1 = interp1d(xdata,ydata)
 	f2 = interp1d(xdata,ydata,kind='cubic')
-	slope, intercept, r_value, p_value, std_err = \
-		stats.linregress(x, y)
+	slope, intercept, r_value, p_value, std_err = stats.linregress(x, y)
 
 	xplot = np.linspace(0., 3., 40)
 
@@ -23,7 +22,7 @@ def draw():
 	ax.axvline(x=0,color="k")
 	ax.set_xlim((-1,6))
 	ax.set_ylim((-1,6))
-	
+
 	plt.show()
 
 
