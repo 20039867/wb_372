@@ -9,7 +9,7 @@ from poly_fit import poly_fit
 from poly_fit import stdDev
 import matplotlib.pyplot as plt
 from scipy.interpolate import interp1d
-
+from scipy.optimize import bisect
 
 """
 (a) Use the natural cubic spline to determine y at x = 1.5. The data points are as follows:
@@ -49,11 +49,15 @@ def a():
     Where does y(x) == 0?
 """
 def b():
-    xdata = np.array([0.0, 0.5, 1.0, 1.5, 2, 2.5, 3.0])
+    xdata = np.array([0.0,      0.5,    1.0,    1.5,    2,      2.5,    3.0])
     ydata = np.array([1.8421, 2.4694, 2.4921, 1.9047, 0.8509, -0.4112, -1.5727])
     a = poly_fit(xdata,ydata,2)
-    bisect
-    print "B: NOT CORRECT Where x == " + str(point)
+
+    def f(x):
+        return a[0] + a[1]*x + a[2]*(x**2)
+
+    point = bisect(f, 2, 2.5)
+    print "B: Where x == " + str(point)
     """Plot"""
     x1  = [0,3 ]
     y1  = [0,0 ]
@@ -64,8 +68,8 @@ def b():
     xapprox = np.linspace(0, 3.0, 100)
     yapprox = np.zeros(100)
 
-    for i in range(len(yapprox)):
-        yapprox[i] += eval_spline(xdata, ydata, k ,xapprox[i])
+    for i in range(len(xapprox)):
+        yapprox[i] += a[0] + a[1]*xapprox[i] + a[2]*(xapprox[i]**2)
 
     plt.plot(x1, y1, "g-",x11,y11, "g-", xdata,ydata,"r.-", xapprox,yapprox, "b-")
     plt.show()
