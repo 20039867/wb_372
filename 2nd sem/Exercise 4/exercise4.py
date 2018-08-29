@@ -9,6 +9,8 @@ from poly_fit import poly_fit
 from poly_fit import stdDev
 import matplotlib.pyplot as plt
 from scipy.interpolate import interp1d
+from newtonPoly import evalPoly
+from newtonPoly import coeffts
 
 """
 (a) Use the natural cubic spline to determine y at x = 1.5. The data points are as follows:
@@ -22,34 +24,52 @@ def a():
     k = curvatures(xdata, ydata)
 
     print "\n"
-    print "A: " + str(eval_spline(xdata, ydata, k, 1.5))
+    print "A: y == " + str(eval_spline(xdata, ydata, k, 1.5)) + "\n  x == 1.5"
     print "\n"
 
-    """Plot
-    xapprox = np.linspace(0,5,10)
-    yapprox = np.zeros(10)
-
+    """Plot"""
+    x1 = [1, 5]
+    y1 = [eval_spline(xdata, ydata, k, 1.5), eval_spline(xdata, ydata, k, 1.5)]
+    x11 = [1.5, 1.5]
+    y11 = [0, 1]
+    xapprox = np.linspace(1,5,100)
+    yapprox = np.zeros(100)
     for i in range(len(xapprox)):
-        yapprox[i] += a[0] + a[1] * xapprox[i] + a[2]*(xapprox[i]**2)
+        yapprox[i] += eval_spline(xdata, ydata, k, xapprox[i])
 
-    plt.plot(xdata,ydata,"ro",xapprox,yapprox,"b-")
-    plt.show()"""
+    plt.plot(x1, y1,"g-",x11, y11, "g-", xdata,ydata,"r.-",xapprox,yapprox,"b-")
+    plt.show()
 
 
 """
 (b) Find the zero of y(x) from the following data:
+**********CHANGING THE X AND Y seems like a mistake**********
     x |1.8421 2.4694 2.4921 1.9047  0.8509  −0.4112  −1.5727
     y |0      0.5    1      1.5     2       2.5      3
 
     Where does y(x) == 0?
 """
 def b():
-    xdata = np.array([1.8421, 2.4694, 2.4921, 1.9047, 0.8509, -0.4112, -1.5727])
-    ydata = np.array([0.0, 0.5, 1.0, 1.5, 2, 2.5, 3.0])
-    k = curvatures(xdata, ydata)
-    """ What the hell is happening here?"""
-    print "B: " + str(eval_spline(xdata, ydata, k, 0))
-    print "INCORRECT\n"
+    xdata = np.array([0.0, 0.5, 1.0, 1.5, 2, 2.5, 3.0])
+    ydata = np.array([1.8421, 2.4694, 2.4921, 1.9047, 0.8509, -0.4112, -1.5727])
+    a = coeffts(xdata,ydata)
+    p = evalPoly(a,xdata,x)
+    print "B: NOT CORRECT Where x == " + str(point)
+    """Plot"""
+    x1  = [0,3 ]
+    y1  = [0,0 ]
+    x11 = [point, point]
+    y11 = [-2, 3]
+
+    plt.title('B')
+    xapprox = np.linspace(0, 3.0, 100)
+    yapprox = np.zeros(100)
+
+    for i in range(len(yapprox)):
+        yapprox[i] += eval_spline(xdata, ydata, k ,xapprox[i])
+
+    plt.plot(x1, y1, "g-",x11,y11, "g-", xdata,ydata,"r.-", xapprox,yapprox, "b-")
+    plt.show()
 
 """
 (c) Use Neville’s method to compute y at x = π/4 from the following data points:
@@ -65,6 +85,7 @@ def c():
 """
 (d) Given the the following data, find y at x = π/4 and x = π/2. Use the method that you consider to
 be most convenient.
+
     x | 0        0.5    1      1.5    2
     y | −0.7854  0.6529 1.7390 2.2071 1.9425
 """
@@ -77,6 +98,7 @@ def d():
 
     """Plot"""
     plt.title('D')
+
     xapprox = np.linspace(0,2,10)
     yapprox = np.zeros(10)
 
@@ -185,6 +207,7 @@ def c2():
 
 def d2():
     pass
+
 if __name__ == "__main__":
     a()
     b()
